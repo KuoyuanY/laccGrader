@@ -354,7 +354,7 @@ app.get('/graders/ungradedapps', function(req,res){
     })
 });
 
-app.post('/graders/finishedAthletic', funciton(req, rec){
+app.post('/graders/finishedAthletic', function(req, res){
     var numTeam = req.body.numTeam;
     var grades = req.body.grades;
     var awards = req.body.awards;
@@ -363,8 +363,11 @@ app.post('/graders/finishedAthletic', funciton(req, rec){
 	    athleticform.score = numTeam + grades + awards + discretionary;	    
         res.redirect("/graders/ungradedapps");
     });
+  });
 
-app.post('/graders/finishedAcademic', funciton(req, rec){
+
+
+app.post('/graders/finishedAcademic', function(req, res){
     var gpa = req.body.gpa;
     var rank = req.body.rank;
     var numAP = req.body.numAP;
@@ -375,8 +378,9 @@ app.post('/graders/finishedAcademic', funciton(req, rec){
 	    academicform.score = gpa + rank + numAP + numHon + gradeAP + discretionary;	    
         res.redirect("/graders/ungradedapps");
     });
+  });
 
-app.post('/graders/finishedComm', funciton(req, rec){
+app.post('/graders/finishedComm', function(req, res){
     var numHon = req.body.numHon;
     var APgrades = req.body.APgrades;
     var discretionary = req.body.discretionary;
@@ -384,8 +388,9 @@ app.post('/graders/finishedComm', funciton(req, rec){
 	    servicesform.score = numHon+ APgrades + discretionary;	    
         res.redirect("/graders/ungradedapps");
     });
+  });
 
-app.post('/graders/finishedStem', funciton(req, rec){
+app.post('/graders/finishedStem', function(req, res){
     var numAP = req.body.numAP;
     var numHon = req.body.numHon;
     var gradeAP = req.body.APgrades;
@@ -394,8 +399,9 @@ app.post('/graders/finishedStem', funciton(req, rec){
 	    stemform.score = numAP + numHon + gradeAP + discretionary;	    
         res.redirect("/graders/ungradedapps");
     });
+  });
     
-app.post('/graders/finishedArts', funciton(req, rec){
+app.post('/graders/finishedArts', function(req, res){
     var creativity = req.body.creativity;
     var craft = req.body.craftsmanship;
     var impression = req.body.impression;
@@ -406,6 +412,7 @@ app.post('/graders/finishedArts', funciton(req, rec){
 	    artsform.score = creativity + craft + impression + composition + grades + discretionary;	    
         res.redirect("/graders/ungradedapps");
     });
+  });
 
     
 app.listen(3000, function() {
