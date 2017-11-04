@@ -54,8 +54,6 @@ app.use(session({
 • /api/nominator/incomplete - get
 • /api/nominator/submitform - post (https://stackoverflow.com/questions/10827108/mongoose-check-if-object-is-mongoose-object)
 • /api/graders/ungradedapps - get
-• /api/graders/finishgrading - post
-• /api/graders/gradedapps - get - needed?
 
 don't need partials since links will be hardcoded
 */
@@ -293,30 +291,6 @@ app.get('/api/graders/ungradedapps', function(req,res){
 	});
 });
 
-app.post('/api/graders/finishgrading', function(req,res){
-	Spamcall.find({calltype: "Telemarketers"}, function(err, spamcalls) {
-		if (err) throw err;
-
-		if (spamcalls.length == 0) {
-			res.json({"No telemarketers reported":"No telemarketers yet"});
-		} else {
-			res.json(spamcalls);
-		}
-	});
-});
-
-app.get('/api/graders/gradedapps', function(req,res){
-	Spamcall.find({calltype: "Robocallers"}, function(err, spamcalls) {
-		if (err) throw err;
-
-		if (spamcalls.length == 0) {
-			res.json({"No robocallers reported":"No robocallers yet"});
-		} else {
-			res.json(spamcalls);
-		}
-	});
-});
-
 // Other endpoints begin here
 /*
 Other Endpoints:
@@ -329,6 +303,8 @@ Other Endpoints:
 • /nominator/communityserviceform
 • /nominator/athleticform
 • /graders (graders dashboard - shows ungraded applications)
+
+least priority
 • /graders/gradedapps
 • /admin/allapps (if needed)
 */
