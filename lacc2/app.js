@@ -182,7 +182,7 @@ app.post('/api/nominator/submitform', function(req,res){
 	           academicform.pstatement == null ||
 	           academicform.resume == null ||
 	           academicform.transcript == null){
-	            return res.json({"Make sure all forms are filled out"});
+	            return res.json("Make sure all forms are filled out");
 	        } else {
 	            academicform.completed.push(true);
 	            res.redirect("/nominator");
@@ -205,7 +205,7 @@ app.post('/api/nominator/submitform', function(req,res){
 	           stemform.pstatement == null ||
 	           stemform.resume == null ||
 	           stemform.transcript == null){
-	            return res.json({"Make sure all forms are filled out"});
+	            return res.json("Make sure all forms are filled out");
 	        } else {
 	            stemform.completed.push(true);
 	            res.redirect("/nominator");
@@ -227,7 +227,7 @@ app.post('/api/nominator/submitform', function(req,res){
 	           artsform.pstatement == null ||
 	           artsform.resume == null ||
 	           artsform.transcript == null){
-	            return res.json({"Make sure all forms are filled out"});
+	            return res.json("Make sure all forms are filled out");
 	        } else {
 	            artsform.completed.push(true);
 	            res.redirect("/nominator");
@@ -249,7 +249,7 @@ app.post('/api/nominator/submitform', function(req,res){
                athleticform.pstatement == null ||
                athleticform.resume == null ||
                athleticform.transcript == null){
-                return res.json({"Make sure all forms are filled out"});
+                return res.json("Make sure all forms are filled out");
             } else {
                 athleticform.completed.push(true);
                 res.redirect("/nominator");
@@ -273,7 +273,7 @@ app.post('/api/nominator/submitform', function(req,res){
                serviceform.pstatement == null ||
                serviceform.resume == null ||
                serviceform.transcript == null){
-                return res.json({"Make sure all forms are filled out"});
+                return res.json("Make sure all forms are filled out");
             } else {
                 serviceform.completed.push(true);
                 res.redirect("/nominator");

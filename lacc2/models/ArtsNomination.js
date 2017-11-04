@@ -48,7 +48,7 @@ var artsnomSchema = new mongoose.Schema({
   },
   portfolio: {
     Type:String
-  }
+  },
   score: {
     type = Number,
     required: true,
