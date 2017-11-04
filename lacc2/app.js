@@ -165,121 +165,121 @@ app.get('/logout', function (req, res, next) {
 
 app.post('/api/nominator/submitform', function(req,res){
 	var type = req.body.type;
-	  if (type == 1){
+	if (type == 1){
 	    AcademicNomination.find({username: req.session.username},function(err,academicform){
-	      if(err) throw err;
-	      if(academicform.nominator == null ||
-	          academicform.nomineefname == null ||
-	          academicform.nomineelname == null ||
-	          academicform.school == null ||
-	          academicform.email == null ||
-	          academicform.phonenum == null ||
-	          academicform.hispanic == null ||
-	          academicform.hispanicwhy == null ||
-	          academicform.gpa == null ||
-	          academicform.isweighted == null ||
-	          academicform.SAT == null ||
-	          academicform.pstatement == null ||
-	          academicform.resume == null ||
-	          academicform.transcript == null){
-	        return res.json({"Make sure all forms are filled out"});
-	      } else {
-	        academicform.completed.push(true);
-	        res.redirect("/nominator");
-	      }
-	  });
+	        if(err) throw err;
+	        if(academicform.nominator == null ||
+	           academicform.nomineefname == null ||
+	           academicform.nomineelname == null ||
+	           academicform.school == null ||
+	           academicform.email == null ||
+	           academicform.phonenum == null ||
+	           academicform.hispanic == null ||
+	           academicform.hispanicwhy == null ||
+	           academicform.gpa == null ||
+	           academicform.isweighted == null ||
+	           academicform.SAT == null ||
+	           academicform.pstatement == null ||
+	           academicform.resume == null ||
+	           academicform.transcript == null){
+	            return res.json({"Make sure all forms are filled out"});
+	        } else {
+	            academicform.completed.push(true);
+	            res.redirect("/nominator");
+	        }
+	    });
 	}
-  if (type == 2){
+    if (type == 2){
 	    StemNomination.find({username: req.session.username},function(err,stemform){
-	      if(err) throw err;
-	      if(stemform.nominator == null ||
-	          stemform.nomineefname == null ||
-	          stemform.nomineelname == null ||
-	          stemform.school == null ||
-	          stemform.email == null ||
-	          stemform.phonenum == null ||
-	          stemform.hispanic == null ||
-	          stemform.hispanicwhy == null ||
-	          stemform.apclasses == null ||
-	          stemform.honorsclasses == null ||
-	          stemform.pstatement == null ||
-	          stemform.resume == null ||
-	          stemform.transcript == null){
-	        return res.json({"Make sure all forms are filled out"});
-	      } else {
-	        stemform.completed.push(true);
-	        res.redirect("/nominator");
-	      }
-	  });
+	        if(err) throw err;
+	        if(stemform.nominator == null ||
+	           stemform.nomineefname == null ||
+	           stemform.nomineelname == null ||
+	           stemform.school == null ||
+	           stemform.email == null ||
+	           stemform.phonenum == null ||
+	           stemform.hispanic == null ||
+	           stemform.hispanicwhy == null ||
+	           stemform.apclasses == null ||
+	           stemform.honorsclasses == null ||
+	           stemform.pstatement == null ||
+	           stemform.resume == null ||
+	           stemform.transcript == null){
+	            return res.json({"Make sure all forms are filled out"});
+	        } else {
+	            stemform.completed.push(true);
+	            res.redirect("/nominator");
+	        }
+	    });
 	}
-  if (type == 3){
+    if (type == 3){
 	    ArtsNomination.find({username: req.session.username},function(err,artsform){
-	      if(err) throw err;
-	      if(artsform.nominator == null ||
-	          artsform.nomineefname == null ||
-	          artsform.nomineelname == null ||
-	          artsform.school == null ||
-	          artsform.email == null ||
-	          artsform.phonenum == null ||
-	          artsform.hispanic == null ||
-	          artsform.hispanicwhy == null ||
-	          artsform.portfolio == null ||
-	          artsform.pstatement == null ||
-	          artsform.resume == null ||
-	          artsform.transcript == null){
-	        return res.json({"Make sure all forms are filled out"});
-	      } else {
-	        artsform.completed.push(true);
-	        res.redirect("/nominator");
-	      }
-	  });
+	        if(err) throw err;
+	        if(artsform.nominator == null ||
+	           artsform.nomineefname == null ||
+	           artsform.nomineelname == null ||
+	           artsform.school == null ||
+	           artsform.email == null ||
+	           artsform.phonenum == null ||
+	           artsform.hispanic == null ||
+	           artsform.hispanicwhy == null ||
+	           artsform.portfolio == null ||
+	           artsform.pstatement == null ||
+	           artsform.resume == null ||
+	           artsform.transcript == null){
+	            return res.json({"Make sure all forms are filled out"});
+	        } else {
+	            artsform.completed.push(true);
+	            res.redirect("/nominator");
+	        }
+	    });
 	}
-  if (type == 4){
-    AthleticsNomination.find({username: req.session.username},function(err,athleticform){
-      if(err) throw err;
-      if(athleticform.nominator == null ||
-          athleticform.nomineefname == null ||
-          athleticform.nomineelname == null ||
-          athleticform.school == null ||
-          athleticform.email == null ||
-          athleticform.phonenum == null ||
-          athleticform.hispanic == null ||
-          athleticform.hispanicwhy == null ||
-          athleticform.numteams == null ||
-          athleticform.pstatement == null ||
-          athleticform.resume == null ||
-          athleticform.transcript == null){
-        return res.json({"Make sure all forms are filled out"});
-      } else {
-        athleticform.completed.push(true);
-        res.redirect("/nominator");
-      }
-    });
-  }
-
-  if (type == 5){
-    ServiceNomination.find({username: req.session.username},function(err,serviceform){
-      if(err) throw err;
-      if(serviceform.nominator == null ||
-          serviceform.nomineefname == null ||
-          serviceform.nomineelname == null ||
-          serviceform.school == null ||
-          serviceform.email == null ||
-          serviceform.phonenum == null ||
-          serviceform.hispanic == null ||
-          serviceform.hispanicwhy == null ||
-          serviceform.servicehours == null ||
-          serviceform.servicedocumentation == null ||
-          serviceform.pstatement == null ||
-          serviceform.resume == null ||
-          serviceform.transcript == null){
-        return res.json({"Make sure all forms are filled out"});
-      } else {
-        serviceform.completed.push(true);
-        res.redirect("/nominator");
-      }
-    });
-  }
+    if (type == 4){
+        AthleticsNomination.find({username: req.session.username},function(err,athleticform){
+            if(err) throw err;
+            if(athleticform.nominator == null ||
+               athleticform.nomineefname == null ||
+               athleticform.nomineelname == null ||
+               athleticform.school == null ||
+               athleticform.email == null ||
+               athleticform.phonenum == null ||
+               athleticform.hispanic == null ||
+               athleticform.hispanicwhy == null ||
+               athleticform.numteams == null ||
+               athleticform.pstatement == null ||
+               athleticform.resume == null ||
+               athleticform.transcript == null){
+                return res.json({"Make sure all forms are filled out"});
+            } else {
+                athleticform.completed.push(true);
+                res.redirect("/nominator");
+            }
+        });
+    }
+    
+    if (type == 5){
+        ServiceNomination.find({username: req.session.username},function(err,serviceform){
+            if(err) throw err;
+            if(serviceform.nominator == null ||
+               serviceform.nomineefname == null ||
+               serviceform.nomineelname == null ||
+               serviceform.school == null ||
+               serviceform.email == null ||
+               serviceform.phonenum == null ||
+               serviceform.hispanic == null ||
+               serviceform.hispanicwhy == null ||
+               serviceform.servicehours == null ||
+               serviceform.servicedocumentation == null ||
+               serviceform.pstatement == null ||
+               serviceform.resume == null ||
+               serviceform.transcript == null){
+                return res.json({"Make sure all forms are filled out"});
+            } else {
+                serviceform.completed.push(true);
+                res.redirect("/nominator");
+            }
+        });
+    }
 });
 
 app.get('/api/graders/ungradedapps', function(req,res){
