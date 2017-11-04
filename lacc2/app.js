@@ -53,7 +53,6 @@ app.use(session({
 • /api/nominator/submitted - get
 • /api/nominator/incomplete - get
 • /api/nominator/submitform - post (https://stackoverflow.com/questions/10827108/mongoose-check-if-object-is-mongoose-object)
-• /api/graders/ungradedapps - get
 
 don't need partials since links will be hardcoded
 */
@@ -387,17 +386,6 @@ app.post('/api/nominator/submitform', function(req,res){
     }
 });
 
-app.get('/api/graders/ungradedapps', function(req,res){
-	Spamcall.find({calltype: "Spam"}, function(err, spamcalls) {
-		if (err) throw err;
-
-		if (spamcalls.length == 0) {
-			res.json({"No spam numbers reported":"No spam callers yet"});
-		} else {
-			res.json(spamcalls);
-		}
-	});
-});
 
 // Other endpoints begin here
 /*
@@ -416,8 +404,10 @@ least priority
 • /graders/gradedapps
 • /admin/allapps (if needed)
 */
-app.get('/AthleticRubric', function(req, res){
-    res.render('AthleticRubric');
+app.get('/graders/4/:id', function(req, res){
+  var id = req.params.id;
+  res.render('athletic-rubric',
+    {id:id});
 });
 
 app.get('/', function(req,res){
@@ -469,7 +459,8 @@ app.post('/graders/finishedAthletic', function(req, res){
     var grades = req.body.grades;
     var awards = req.body.awards;
     var discretionary = req.body.discretionary;
-    AthleticNomination.find({username: req.session.username},function(err,athleticform){
+    var appid = req.body.appid
+    AthleticNomination.find({id: appid},function(err,athleticform){
 	    athleticform.score = numTeam + grades + awards + discretionary;	    
         res.redirect("/graders");
     });
