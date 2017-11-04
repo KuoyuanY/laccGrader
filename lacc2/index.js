@@ -34,6 +34,14 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.use('/public', express.static('public'));
 
+app.use(session({
+  secret: 'work hard',
+  resave: true,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: db
+  })
+}));
 
 /* Api Endpoints:
 • /api/nominator/submitted - get
@@ -105,6 +113,69 @@ app.get('/api/nominator/incomplete', function(req,res){
 		}
 	});
 	res.json({"Reported Successfully":phonenum});
+});
+
+
+app.post('/login', function (req, res, next) {
+    // confirm that user typed same password twice
+    if (req.body.password !== req.body.passwordConf) {
+        var err = new Error('Passwords do not match.');
+        err.status = 400;
+        res.send("passwords dont match");
+        return next(err);
+    }
+    
+    if (req.body.type &&
+        req.body.username &&
+        req.body.password &&
+        req.body.passwordConf) {
+        
+        var userData = {
+            type: req.body.type,
+            username: req.body.username,
+            password: req.body.password,
+            passwordConf: req.body.passwordConf,
+        }
+        
+        User.create(userData, function (error, user) {
+            if (error) {
+                return next(error);
+            } else {
+                console.log(user);
+                req.session.userId = user._id;
+                return res.redirect('/profile');
+            }
+        });
+        
+    } else if (req.body.logusername && req.body.logpassword) {
+        User.authenticate(req.body.logusername, req.body.logpassword, function (error, user) {
+            if (error || !user) {
+                var err = new Error('Wrong username or password.');
+                err.status = 401;
+                return next(err);
+            } else {
+                req.session.userId = user._id;
+                return res.redirect('/profile');
+            }
+        });
+    } else {
+        var err = new Error('All fields required.');
+        err.status = 400;
+        return next(err);
+    }
+})
+
+app.get('/logout', function (req, res, next) {
+  if (req.session) {
+    // delete session object
+    req.session.destroy(function (err) {
+      if (err) {
+        return next(err);
+      } else {
+        return res.redirect('/');
+      }
+    });
+  }
 });
 
 app.post('/api/nominator/submitform', function(req,res){
