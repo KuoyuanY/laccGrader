@@ -309,18 +309,7 @@ least priority
 • /admin/allapps (if needed)
 */
 app.get('/', function(req,res){
-
-	Spamcall.find({}, function(err,spamcalls){
-		if (err) throw err;
-		var numsonly = [];
-		spamcalls.forEach(function(call){
-			numsonly.push(call.phonenum);
-		});
-		res.render('allnums',{
-			search: JSON.stringify(numsonly),
-			numbers: spamcalls
-		});
-	});
+	res.send("index at /");
 });
 
 app.get('/nominator', function(req,res){
@@ -332,164 +321,31 @@ app.get('/nominator/completed', function(req,res){
 });
 
 app.get('/nominator/academicform', function(req,res){
-	var body = req.body;
-	console.log("Phone number: " + body.phonenum);
-	console.log("Call type: " + body.calltype);
-	console.log("Call content: " + body.callcontent);
-	body.reports = parseInt(body.reports);
-	console.log("Reports: "+ body.reports);
-	console.log("How to unsub: " + body.howtounsub);
-	var options = { 
-	    method: 'POST',
-	    url: 'http://localhost:3000/api/report_num',
-	    headers: { 
-	        'content-type': 'application/x-www-form-urlencoded' 
-	    },
-	    form: { 
-	       phonenum: body.phonenum,
-	       calltype: body.calltype,
-	       callcontent: body.callcontent,
-	       reports: body.reports,
-	       howtounsub: body.howtounsub
-	    } 
-	};
-	request(options, function (error, response, body) {
-	  if (error) throw new Error(error);
-	  console.log(body);
-	  res.redirect('/');
-	});
+
 });
 
 app.get('/nominator/artsform', function(req,res){
-	var areacode = req.params.areacode;
-	console.log("Area code:" + areacode);
-
-	if (!areacode_regex.test(areacode)) {
-		return res.render('areacode', {
-			areacodevalid: false,
-			areacode: areacode,
-			phonenums: {}
-		});
-	}
-	Spamcall.find({phonenum: new RegExp(areacode+'[0-9]{7}')},function(err, spamcalls){
-		if (err) throw err;
-
-		if (spamcalls.length == 0) {
-			res.render('areacode', {
-				areacodevalid: true,
-				areacode: areacode,
-				phonenums: undefined
-			});
-		} else {
-			var areanums = [];
-			spamcalls.forEach(function(call){
-				areanums.push(call.phonenum);
-			});
-			res.render('areacode', {
-				areacodevalid: true,
-				areacode: areacode,
-				phonenums: areanums
-			});
-		}
-	});
+	
 });
 
 app.get('/nominator/stemform', function(req,res){
-	Spamcall.find({calltype: "Spam"}, function(err, spamcalls) {
-		if (err) throw err;
 
-		if (spamcalls.length == 0) {
-			res.render('spam',{
-				spam: undefined
-			});
-		} else {
-			res.render('spam',{
-				spam: spamcalls
-			});
-		}
-	});
 });
 
 app.get('/nominator/communityserviceform', function(req,res){
-	Spamcall.find({calltype: "Telemarketers"}, function(err, spamcalls) {
-		if (err) throw err;
-
-		if (spamcalls.length == 0) {
-			res.render('telemarketers',{
-				telemarketers: undefined
-			});
-		} else {
-			res.render('telemarketers',{
-				telemarketers: spamcalls
-			});
-		}
-	});
+	
 });
 
 app.get('/nominator/athleticform', function(req,res){
-	Spamcall.find({calltype: "Robocallers"}, function(err, spamcalls) {
-		if (err) throw err;
-
-		if (spamcalls.length == 0) {
-			res.render('robocallers',{
-				robocallers: undefined
-			});
-		} else {
-			res.render('robocallers',{
-				robocallers: spamcalls
-			});
-		}
-	});
+	
 });
 
 app.get('/graders/ungradedapps', function(req,res){
-	Spamcall.find({}).sort({reports: 'desc'}).find().exec(function(err,spamcalls){
-		if (err) throw err;
-
-		var mostreports = spamcalls[0].reports;
-		var mostreportednums = [];
-
-		spamcalls.forEach(function(call){
-			if (call.reports == mostreports) {
-				mostreportednums.push(call);
-			}
-		});
-
-		if (spamcalls.length == 0) {
-			res.render('mostreported',{
-				mostreported: undefined
-			});
-		} else {
-			res.render('mostreported',{
-				mostreported: mostreportednums
-			});
-		}
-	});
+	
 });
 
 app.get('/graders/gradedapps', function(req,res){
-	Spamcall.find({}).sort({reports: 'desc'}).find().exec(function(err,spamcalls){
-		if (err) throw err;
-
-		var mostreports = spamcalls[0].reports;
-		var mostreportednums = [];
-
-		spamcalls.forEach(function(call){
-			if (call.reports == mostreports) {
-				mostreportednums.push(call);
-			}
-		});
-
-		if (spamcalls.length == 0) {
-			res.render('mostreported',{
-				mostreported: undefined
-			});
-		} else {
-			res.render('mostreported',{
-				mostreported: mostreportednums
-			});
-		}
-	});
+	
 });
 
 
