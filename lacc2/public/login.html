@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html >
 <head>
   <meta charset="UTF-8">
@@ -22,36 +22,43 @@
         <div id="signup">
           <h1>Latin American Community Center</h1>
 
-          <form action="/" method="post">
+          <form action="/login" method="post">
 
           <div class="top-row">
             <div class="field-wrap">
               <label>
                 First Name<span class="req">*</span>
               </label>
-              <input type="text" required autocomplete="off" />
+              <input type="text" name="firstName" required autocomplete="off" />
             </div>
 
             <div class="field-wrap">
               <label>
                 Last Name<span class="req">*</span>
               </label>
-              <input type="text"required autocomplete="off"/>
+              <input type="text" name="lastName" required autocomplete="off"/>
             </div>
           </div>
 
           <div class="field-wrap">
             <label>
-              Email Address<span class="req">*</span>
+              Username<span class="req">*</span>
             </label>
-            <input type="email"required autocomplete="off"/>
+            <input type="text" name="username" required autocomplete="off"/>
           </div>
 
           <div class="field-wrap">
             <label>
               Set A Password<span class="req">*</span>
             </label>
-            <input type="password"required autocomplete="off"/>
+            <input type="password" name="password" required autocomplete="off"/>
+          </div>
+
+          <div class="field-wrap">
+            <label>
+              Confirm Password<span class="req">*</span>
+            </label>
+            <input type="password" name="passwordConf" required autocomplete="off"/>
           </div>
 
           <button type="submit" class="button button-block"/>Register</button>
@@ -63,20 +70,20 @@
         <div id="login">
           <h1>Latin American Community Center</h1>
 
-          <form action="/" method="post">
+          <form action="/login" method="post">
 
             <div class="field-wrap">
             <label>
-              Email Address<span class="req">*</span>
+              Username<span class="req">*</span>
             </label>
-            <input type="email"required autocomplete="off"/>
+            <input type="text" name="logusername" required autocomplete="off"/>
           </div>
 
           <div class="field-wrap">
             <label>
               Password<span class="req">*</span>
             </label>
-            <input type="password"required autocomplete="off"/>
+            <input type="password" name="logpassword" required autocomplete="off"/>
           </div>
 
           <button class="button button-block"/>Log In</button>
