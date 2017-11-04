@@ -340,15 +340,15 @@ app.get('/nominator/communityserviceform', function(req,res){
 });
 
 app.get('/nominator/athleticform', function(req,res){
-	res.render('athletic');
+	res.render('athletic-nom-app');
 });
 
-app.get('/graders/ungradedapps', function(req,res){
+app.get('/graders', function(req,res){
     var id = req.session.username;
     User.find({username: id}, function(err, user){
         if(user.type == 4){//grader is 1
             AthleticNomination.find({score: -1}, function(err, form){
-                res.send("Number of ungraded athletic forms: " + form.length);
+                res.json(form);
             });
         }
     })
@@ -361,7 +361,7 @@ app.post('/graders/finishedAthletic', function(req, res){
     var discretionary = req.body.discretionary;
     AthleticNomination.find({username: req.session.username},function(err,athleticform){
 	    athleticform.score = numTeam + grades + awards + discretionary;	    
-        res.redirect("/graders/ungradedapps");
+        res.redirect("/graders");
     });
   });
 
