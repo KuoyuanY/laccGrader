@@ -10,10 +10,13 @@
   "author": "SaiArvind Ganganapalle",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.17.1",
+    "connect-mongo": "^2.0.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
     "lodash": "^4.17.4",
     "mongoose": "^4.9.7",
     "morgan": "^1.8.1",

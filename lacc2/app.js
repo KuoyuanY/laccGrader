@@ -7,12 +7,14 @@ var dotenv = require('dotenv');
 var mongoose = require('mongoose');
 var request = require('request');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 var AcademicRubric = require('./models/AcademicRubric');
 var ArtsRubric = require('./models/ArtsRubric');
 var AthleticRubric = require('./models/AthleticRubric');
 var ServiceRubric = require('./models/ServiceRubric');
 var StemRubric = require('./models/StemRubric');
+var User = require('./models/user.js');
 
 
 var app = express();
@@ -23,7 +25,7 @@ dotenv.load();
 // Connect to MongoDB
 console.log(process.env.MONGODB)
 mongoose.connect(process.env.MONGODB);
-mongoose.connection.on('error', function() {
+var db = mongoose.connection.on('error', function() {
     console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
     process.exit(1);
 });
@@ -114,6 +116,10 @@ app.get('/api/nominator/incomplete', function(req,res){
 		}
 	});
 	res.json({"Reported Successfully":phonenum});
+});
+
+app.get('/login', function(req,res){
+	res.render('login');
 });
 
 
@@ -265,34 +271,7 @@ app.get('/', function(req,res){
 });
 
 app.get('/nominator', function(req,res){
-	var number = req.params.number;
-	if (!phonenum_regex.test(number)) {
-		return res.render('number',{
-			validnum: false,
-			found: false,
-			givennum: number,
-			num: {}
-		});
-	}
-	Spamcall.findOne({phonenum: number}, function(err,spamcall){
-		if (err) throw err;
-
-		if (!spamcall) {
-			res.render('number',{
-				validnum: true,
-				found: false,
-				givennum: number,
-				num: {}
-			});
-		} else {
-			res.render('number',{
-				validnum: true,
-				found: true,
-				givennum: number,
-				num: spamcall
-			});
-		}
-	});
+	console.log("****nominator****");
 });
 
 app.get('/nominator/completed', function(req,res){
