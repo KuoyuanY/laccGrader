@@ -28,38 +28,20 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.use('/public', express.static('public'));
 
-var phonenum_regex = /^\d{10}$/;
-var areacode_regex = /^\d{3}$/;
-
-/* Add whatever endpoints you need! Remember that your API endpoints must
- * have '/api' prepended to them. Please remember that you need at least 5 
- * endpoints for the API, and 5 others. 
- */
 
 /* Api Endpoints:
-• /api/number/:number - get
-• /api/report_num - post
-• /api/areacode/:areacode - get
-• /api/spam - get 
-• /api/telemarketers - get 
-• /api/robocallers - get 
-• /api/mostreported - get
-
-Other Endpoints:
-• / (allnums.handlebars)
-• /number/:number
-• /report_num
-• /areacode/:areacode
-• /spam
-• /telemarketers
-• /robocallers
-• /mostreported
+• /api/nominator/submitted - get
+• /api/nominator/incomplete - get
+• /api/nominator/submitform - post (https://stackoverflow.com/questions/10827108/mongoose-check-if-object-is-mongoose-object)
+• /api/graders/ungradedapps - get
+• /api/graders/finishgrading - post
+• /api/graders/gradedapps - get - needed?
 
 don't need partials since links will be hardcoded
 */
 
 // API endpoints begin here
-app.get('/api/number/:number', function(req,res){
+app.get('/api/nominator/submitted', function(req,res){
 	var number = req.params.number;
 	if (!phonenum_regex.test(number)) {
 		return res.json({"Invalid phone number.":"Phone numbers must be exactly 10 digits"});
@@ -75,7 +57,7 @@ app.get('/api/number/:number', function(req,res){
 	});
 });
 
-app.post('/api/report_num', function(req,res){
+app.get('/api/nominator/incomplete', function(req,res){
 	var phonenum = req.body.phonenum;
 	if (!phonenum_regex.test(phonenum)) {
 		return res.json({"Invalid phone number.":"Phone numbers must be exactly 10 digits"});
@@ -119,7 +101,7 @@ app.post('/api/report_num', function(req,res){
 	res.json({"Reported Successfully":phonenum});
 });
 
-app.get('/api/areacode/:areacode', function(req,res){
+app.post('/api/nominator/submitform', function(req,res){
 	var areacode = req.params.areacode;
 	if (!areacode_regex.test(areacode)) {
 		return res.json({"Invalid areacode":"Area codes must be exactly 3 digits"})
@@ -135,7 +117,7 @@ app.get('/api/areacode/:areacode', function(req,res){
 	});
 });
 
-app.get('/api/spam', function(req,res){
+app.get('/api/graders/ungradedapps', function(req,res){
 	Spamcall.find({calltype: "Spam"}, function(err, spamcalls) {
 		if (err) throw err;
 
@@ -147,7 +129,7 @@ app.get('/api/spam', function(req,res){
 	});
 });
 
-app.get('/api/telemarketers', function(req,res){
+app.post('/api/graders/finishgrading', function(req,res){
 	Spamcall.find({calltype: "Telemarketers"}, function(err, spamcalls) {
 		if (err) throw err;
 
@@ -159,7 +141,7 @@ app.get('/api/telemarketers', function(req,res){
 	});
 });
 
-app.get('/api/robocallers', function(req,res){
+app.get('/api/graders/gradedapps', function(req,res){
 	Spamcall.find({calltype: "Robocallers"}, function(err, spamcalls) {
 		if (err) throw err;
 
@@ -171,36 +153,21 @@ app.get('/api/robocallers', function(req,res){
 	});
 });
 
-app.get('/api/mostreported', function(req,res){
-	Spamcall.find({}).sort({reports: 'desc'}).find().exec(function(err,spamcalls){
-		if (err) throw err;
-
-		var mostreports = spamcalls[0].reports;
-		var mostreportednums = [];
-
-		spamcalls.forEach(function(call){
-			if (call.reports == mostreports) {
-				mostreportednums.push(call);
-			}
-		});
-
-		if (spamcalls.length == 0) {
-			res.json({"No reports have been submitted":"Check back later"});
-		} else {
-			res.json(mostreportednums);
-		}
-	});
-});
-
-app.get('/api/get_all_reports', function(req,res){
-	Spamcall.find({},function(err,allreports){
-		if (err) throw err;
-
-		res.json(allreports);
-	});
-});
-
 // Other endpoints begin here
+/*
+Other Endpoints:
+• / (login.handlebars) (login page)
+• /nominator (nominator dashboard - shows incompleted applications)
+• /nominator/completed (completed nominator applications)
+• /nominator/academicform
+• /nominator/artsform
+• /nominator/stemform
+• /nominator/communityserviceform
+• /nominator/athleticform
+• /graders/ungradedapps
+• /graders/gradedapps
+• /admin/allapps (if needed)
+*/
 app.get('/', function(req,res){
 
 	Spamcall.find({}, function(err,spamcalls){
@@ -216,7 +183,7 @@ app.get('/', function(req,res){
 	});
 });
 
-app.get('/number/:number', function(req,res){
+app.get('/nominator', function(req,res){
 	var number = req.params.number;
 	if (!phonenum_regex.test(number)) {
 		return res.render('number',{
@@ -247,11 +214,11 @@ app.get('/number/:number', function(req,res){
 	});
 });
 
-app.get('/report_num', function(req,res){
+app.get('/nominator/completed', function(req,res){
 	res.render('reportnum');
 });
 
-app.post('/report_num', function(req,res){
+app.get('/nominator/academicform', function(req,res){
 	var body = req.body;
 	console.log("Phone number: " + body.phonenum);
 	console.log("Call type: " + body.calltype);
@@ -280,7 +247,7 @@ app.post('/report_num', function(req,res){
 	});
 });
 
-app.get('/areacode/:areacode', function(req,res){
+app.get('/nominator/artsform', function(req,res){
 	var areacode = req.params.areacode;
 	console.log("Area code:" + areacode);
 
@@ -314,7 +281,7 @@ app.get('/areacode/:areacode', function(req,res){
 	});
 });
 
-app.get('/spam', function(req,res){
+app.get('/nominator/stemform', function(req,res){
 	Spamcall.find({calltype: "Spam"}, function(err, spamcalls) {
 		if (err) throw err;
 
@@ -330,7 +297,7 @@ app.get('/spam', function(req,res){
 	});
 });
 
-app.get('/telemarketers', function(req,res){
+app.get('/nominator/communityserviceform', function(req,res){
 	Spamcall.find({calltype: "Telemarketers"}, function(err, spamcalls) {
 		if (err) throw err;
 
@@ -346,7 +313,7 @@ app.get('/telemarketers', function(req,res){
 	});
 });
 
-app.get('/robocallers', function(req,res){
+app.get('/nominator/athleticform', function(req,res){
 	Spamcall.find({calltype: "Robocallers"}, function(err, spamcalls) {
 		if (err) throw err;
 
@@ -362,7 +329,7 @@ app.get('/robocallers', function(req,res){
 	});
 });
 
-app.get('/mostreported', function(req,res){
+app.get('/graders/ungradedapps', function(req,res){
 	Spamcall.find({}).sort({reports: 'desc'}).find().exec(function(err,spamcalls){
 		if (err) throw err;
 
@@ -387,6 +354,32 @@ app.get('/mostreported', function(req,res){
 	});
 });
 
+app.get('/graders/gradedapps', function(req,res){
+	Spamcall.find({}).sort({reports: 'desc'}).find().exec(function(err,spamcalls){
+		if (err) throw err;
+
+		var mostreports = spamcalls[0].reports;
+		var mostreportednums = [];
+
+		spamcalls.forEach(function(call){
+			if (call.reports == mostreports) {
+				mostreportednums.push(call);
+			}
+		});
+
+		if (spamcalls.length == 0) {
+			res.render('mostreported',{
+				mostreported: undefined
+			});
+		} else {
+			res.render('mostreported',{
+				mostreported: mostreportednums
+			});
+		}
+	});
+});
+
+
 app.listen(3000, function() {
-    console.log('Spam Caller DB listening on port 3000!');
+    console.log('LACC listening on port 3000!');
 });
