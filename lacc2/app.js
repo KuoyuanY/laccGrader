@@ -198,7 +198,7 @@ app.post('/api/nominator/submitform', function(req,res){
                     resume:resume,
                     transcript:transcript,
                     score:score,
-                    id = count+1,
+                    id : count + 1,
                     completed:true,
                 });
                 newOne.save(function(err){
@@ -228,22 +228,22 @@ app.post('/api/nominator/submitform', function(req,res){
 	            return res.json("Make sure all forms are filled out");
 	        } else {
                 var newOne = new AthleticNomination({
-                    username:username;
-                    nominator:nominator;
-                    nomineefname:nomineefname;
-                    nomineelname:nomineelname;
-                    school:school;
-                    email:email;
-                    phonenum:phonenum;
-                    hispanic:hispanic;
-                    hispanicwhy:hispanicwhy;
-                    numteams:numteams;
-                    pstatement:pstatement;
-                    resume:resume;
-                    transcript:transcript;
-                    score:score;
-                    id = count+1;
-                    completed:true;
+                    username:username,
+                    nominator:nominator,
+                    nomineefname:nomineefname,
+                    nomineelname:nomineelname,
+                    school:school,
+                    email:email,
+                    phonenum:phonenum,
+                    hispanic:hispanic,
+                    hispanicwhy:hispanicwhy,
+                    numteams:numteams,
+                    pstatement:pstatement,
+                    resume:resume,
+                    transcript:transcript,
+                    score:score,
+                    id : count+1,
+                    completed:true,
                 });
                 newOne.save(function(err){
                     if (err) throw err;
@@ -271,22 +271,22 @@ app.post('/api/nominator/submitform', function(req,res){
 	            return res.json("Make sure all forms are filled out");
 	        } else {
                 var newOne = new AthleticNomination({
-                    username:username;
-                    nominator:nominator;
-                    nomineefname:nomineefname;
-                    nomineelname:nomineelname;
-                    school:school;
-                    email:email;
-                    phonenum:phonenum;
-                    hispanic:hispanic;
-                    hispanicwhy:hispanicwhy;
-                    numteams:numteams;
-                    pstatement:pstatement;
-                    resume:resume;
-                    transcript:transcript;
-                    score:score;
-                    id = count+1;
-                    completed:true;
+                    username:username,
+                    nominator:nominator,
+                    nomineefname:nomineefname,
+                    nomineelname:nomineelname,
+                    school:school,
+                    email:email,
+                    phonenum:phonenum,
+                    hispanic:hispanic,
+                    hispanicwhy:hispanicwhy,
+                    numteams:numteams,
+                    pstatement:pstatement,
+                    resume:resume,
+                    transcript:transcript,
+                    score:score,
+                    id : count+1,
+                    completed:true,
                 });
                 newOne.save(function(err){
                     if (err) throw err;
@@ -328,7 +328,7 @@ app.post('/api/nominator/submitform', function(req,res){
                     resume:resume,
                     transcript:transcript,
                     score:score,
-                    id = count+1,
+                    id : count+1,
                     completed:true,
                 });
                 newOne.save(function(err){
@@ -359,22 +359,22 @@ app.post('/api/nominator/submitform', function(req,res){
                 return res.json("Make sure all forms are filled out");
             } else {
                 var newOne = new ServiceNomination({
-                    username:username;
-                    nominator:nominator;
-                    nomineefname:nomineefname;
-                    nomineelname:nomineelname;
-                    school:school;
-                    email:email;
-                    phonenum:phonenum;
-                    hispanic:hispanic;
-                    hispanicwhy:hispanicwhy;
-                    numteams:numteams;
-                    pstatement:pstatement;
-                    resume:resume;
-                    transcript:transcript;
-                    score:score;
-                    id = count+1;
-                    completed:true;
+                    username:username,
+                    nominator:nominator,
+                    nomineefname:nomineefname,
+                    nomineelname:nomineelname,
+                    school:school,
+                    email:email,
+                    phonenum:phonenum,
+                    hispanic:hispanic,
+                    hispanicwhy:hispanicwhy,
+                    numteams:numteams,
+                    pstatement:pstatement,
+                    resume:resume,
+                    transcript:transcript,
+                    score:score,
+                    id : count+1,
+                    completed:true,
                 });
                 newOne.save(function(err){
                     if (err) throw err;
