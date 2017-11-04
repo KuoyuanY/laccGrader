@@ -6,7 +6,7 @@ var _ = require('lodash');
 var dotenv = require('dotenv');
 var mongoose = require('mongoose');
 var request = require('request');
-var session = require('express-session');
+var session= require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
 var AcademicRubric = require('./models/AcademicRubric');
@@ -15,8 +15,11 @@ var AthleticRubric = require('./models/AthleticRubric');
 var ServiceRubric = require('./models/ServiceRubric');
 var StemRubric = require('./models/StemRubric');
 var User = require('./models/user.js');
-
-
+var AcademicForm = require('./models/AcademicNomination');
+var ArtsForm = require('./models/ArtsNomination');
+var AthleticForm = require('./models/AthleticNomination');
+var ServiceForm = require('./models/ServiceNomination');
+var StemForm = require('./models/StemNomination');
 var app = express();
 
 
@@ -59,63 +62,33 @@ don't need partials since links will be hardcoded
 
 // API endpoints begin here
 app.get('/api/nominator/submitted', function(req,res){
-	var number = req.params.number;
-	if (!phonenum_regex.test(number)) {
-		return res.json({"Invalid phone number.":"Phone numbers must be exactly 10 digits"});
-	}
-	Spamcall.findOne({phonenum: number}, function(err,spamcall){
-		if (err) throw err;
+    var nominatorName = req.session.username;
+    console.log(nominatorName);
+    
+	AcademicNomination.find({'Nominator': name, 'completed': submit}, function(err, doc){
+        if (err) throw err; 
 
-		if (!spamcall) {
-			res.json({"This number has not been reported yet.":number});
-		} else {
-			res.json(spamcall);
-		}
-	});
+        if (!doc && submit) {
+            res.json({"Cannot find application": name});
+        } else {
+            res.json(doc);//array
+        }
+    });
 });
 
 app.get('/api/nominator/incomplete', function(req,res){
-	var phonenum = req.body.phonenum;
-	if (!phonenum_regex.test(phonenum)) {
-		return res.json({"Invalid phone number.":"Phone numbers must be exactly 10 digits"});
-	}
-	var reports = req.body.reports;
-	if (!(parseInt(reports) > 0)) {
-		return res.json({"Invalid number of reports.":"Reports must be positive digits"});
-	}
-	reports = parseInt(reports);
-	var calltype = req.body.calltype;
-	var callcontent = req.body.callcontent;
-	var howtounsub = req.body.howtounsub;
+	var nominator = req.session.username;
+    console.log(nominatorName);
+    
+	AcademicNomination.find({'NominatorName': name, 'completed': submit}, function(err, doc){
+        if (err) throw err; 
 
-	Spamcall.findOne({phonenum: phonenum}, function(err,spamcall){
-		if (err) throw err;
-
-		if (!spamcall) { //new number not in db yet
-			var newspam = new Spamcall({
-				phonenum: phonenum,
-				calltype: [calltype],
-				callcontent: [callcontent],
-				reports: reports,
-				howtounsub: [howtounsub]
-			});
-			newspam.save(function(err){
-				if (err) throw err;
-				console.log("New number: " + phonenum + " saved successfully");
-			});
-		} else { //old number - just updated it
-			spamcall.calltype.push(calltype);
-			spamcall.callcontent.push(callcontent);
-			spamcall.reports += reports;
-			spamcall.howtounsub.push(howtounsub);
-
-			spamcall.save(function(err){
-				if (err) throw err;
-				console.log("Added new report of old number: " + phonenum);
-			});
-		}
-	});
-	res.json({"Reported Successfully":phonenum});
+        if (!doc && !submit) {
+            res.json({"Cannot find application": name});
+        } else {
+            res.json(doc);
+        }
+    });
 });
 
 app.get('/login', function(req,res){
@@ -152,7 +125,7 @@ app.post('/login', function (req, res, next) {
                 return next(error);
             } else {
                 console.log(user);
-                req.session.userId = user.username;
+                req.session.username = user.username;
                 return res.redirect('/nominator');
             }
         });
@@ -164,8 +137,9 @@ app.post('/login', function (req, res, next) {
                 err.status = 401;
                 return next(err);
             } else {
-                req.session.userId = user._id;
-                return res.redirect('/profile');
+                req.session.username = user.username;
+                
+                return res.redirect('/?');
             }
         });
     } else {
