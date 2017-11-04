@@ -37,7 +37,7 @@ var artsSchema = new mongoose.Schema({
     max: 3,
     required: true
   }
-};
+});
 
 var ArtsRubric = mongoose.model('ArtsRubric', artsSchema);
 
