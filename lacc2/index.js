@@ -6,7 +6,13 @@ var _ = require('lodash');
 var dotenv = require('dotenv');
 var mongoose = require('mongoose');
 var request = require('request');
-var Spamcall = require('./models/Spamcall');
+
+var AcademicRubric = require('./models/AcademicRubric');
+var ArtsRubric = require('./models/ArtsRubric');
+var AthleticRubric = require('./models/AthleticRubric');
+var ServiceRubric = require('./models/ServiceRubric');
+var StemRubric = require('./models/StemRubric');
+
 
 var app = express();
 
@@ -164,7 +170,7 @@ Other Endpoints:
 • /nominator/stemform
 • /nominator/communityserviceform
 • /nominator/athleticform
-• /graders/ungradedapps
+• /graders (graders dashboard - shows ungraded applications)
 • /graders/gradedapps
 • /admin/allapps (if needed)
 */
