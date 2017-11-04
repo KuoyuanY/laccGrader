@@ -19,7 +19,15 @@ var UserSchema = new mongoose.Schema({
     type: {
         type: Number,
         required: true
-    }    
+    },
+    firstName {
+        type: String,
+        required: true
+    },
+    lastName {
+        type: String,
+        required: true
+    }
 });
 UserSchema.statics.authenticate = function (username, password, callback) {
   User.findOne({ username: username })
