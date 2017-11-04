@@ -25,7 +25,7 @@ var athleticSchema = new mongoose.Schema({
     max: 3,
     required: true
   }
-};
+});
 
 var AthleticRubric = mongoose.model('AthleticRubric', athleticSchema);
 

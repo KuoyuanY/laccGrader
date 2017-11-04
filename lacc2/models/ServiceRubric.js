@@ -19,7 +19,7 @@ var serviceSchema = new mongoose.Schema({
     max: 3,
     required: true
   }
-};
+});
 
 var ServiceRubric = mongoose.model('ServiceRubric', serviceSchema);
 

@@ -25,7 +25,7 @@ var stemSchema = new mongoose.Schema({
     max: 3,
     required: true
   }
-};
+});
 
 var StemRubric = mongoose.model('StemRubric', stemSchema);
 
