@@ -1,0 +1,25 @@
+<h1 class="ui center aligned header">Spam Report for <div class="ui circular huge blue label">{{givennum}}</div> </h1>
+
+<div class="ui one column stackable center aligned page grid">
+   <div class="column twelve wide">
+
+{{#if validnum}}
+	{{#if found}}
+	<div class="ui huge celled relaxed list">
+		<div class="item"><div class="ui label">Phone Number:</div> {{num.phonenum}}</div>
+		<div class="item"><div class="ui label">Total reports:</div> {{num.reports}}</div>
+		<div class="item"><div class="ui label">Call Type:</div> {{num.calltype}}</div>
+		<div class="item"><div class="ui label">Call Contents:</div> {{num.callcontent}}</div>
+		<div class="item"><div class="ui label">Ways to Unsubscribe:</div> {{num.howtounsub}}</div>
+	</div>
+	{{else}}
+		<p>Phone number not reported yet</p>
+		<p><a href="/">Click here to go to the homepage.</a></p>
+	{{/if}}
+{{else}}
+	<p>Phone numbers must be exactly 10 digits</p>
+	<p><a href="/">Click here to go to the homepage.</a></p>
+{{/if}}
+
+</div>
+</div>

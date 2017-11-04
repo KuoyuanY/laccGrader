@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/public/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"></script>
+    <title>Spam Caller Database</title>
+</head>
+<script>
+	function processAreacode() {
+		if (typeof location.origin === 'undefined') {
+			location.origin = location.protocol + '//' + location.host;
+		}
+		var url = location.origin + "/areacode/" + $('#areacode').val();
+		location.href=url;
+		return false;
+	}
+</script>
+
+<div class="ui seven item menu">
+<a href="/" class="item">Home</a>
+<a href="/report_num" class="item">Report a Spam Call</a>
+<a href="/spam" class="item">General Spam</a>
+<a href="/telemarketers" class="item">Telemarketers</a>
+<a href="/robocallers" class="item">Robocallers</a>
+<a href="/mostreported" class="item">Most Reported Numbers</a>
+<div class="item">
+	<form onSubmit="return processAreacode();">
+		Filter by Area Code:
+		<input type="text" name="areacode" id="areacode">
+		<input type="submit" value="Search">
+	</form>
+</div>
+</div>
+
+<body>
+    {{{body}}}
+</body>
+</html>
+

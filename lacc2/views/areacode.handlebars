@@ -1,0 +1,21 @@
+<h1 class="ui center aligned header">Spam Reports for Area Code:<div class="ui circular huge blue label">{{areacode}}</div></h1>
+
+<div class="ui one column stackable center aligned page grid">
+   <div class="column twelve wide">
+
+{{#if areacodevalid}}
+	{{#if phonenums}}
+	<div class="ui animated huge celled relaxed list">
+		{{#each phonenums}}
+			<a class="item" href="/number/{{this}}"><div class="ui label">Phone Number:</div>{{this}}</a>
+		{{/each}}
+	</div>
+	{{else}}
+		<p>No spam reports in area code: <div class="ui circular red label"> {{areacode}}</div></p>
+	{{/if}}
+{{else}}
+	<p>Invalid area code: <div class="ui circular red label"> {{areacode}}</div>. An area code must be exactly 3 digits</p>
+{{/if}}
+
+</div>
+</div>

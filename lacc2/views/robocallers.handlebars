@@ -1,0 +1,28 @@
+<h1 class="ui center aligned header">Robocallers</h1>
+
+<div id="robocallertable">
+
+{{#if robocallers}}
+	<table class="ui fixed single line celled table">
+		<thead><tr>
+			<th>Phone Number</th>
+			<th>Spam Type</th>
+			<th>Call Contents</th>
+			<th>Number of Reports</th>
+			<th>How to Unsubscribe</th>
+		</tr></thead>
+	{{#each robocallers}}
+		<tr>
+		<td><a href="/number/{{this.phonenum}}">{{this.phonenum}}</a></td>
+		<td>{{this.calltype}}</td>
+		<td>{{this.callcontent}}</td>
+		<td>{{this.reports}}</td>
+		<td>{{this.howtounsub}}</td>
+		</tr>
+	{{/each}}
+	</table>
+{{else}}
+	<p>No robocaller reports yet.</p>
+{{/if}}
+
+</div>

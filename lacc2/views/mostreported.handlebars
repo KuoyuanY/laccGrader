@@ -1,0 +1,24 @@
+<h1 class="ui center aligned header">Most Reported Numbers</h1>
+
+<div class="ui one column stackable center aligned page grid">
+   <div class="column twelve wide">
+
+{{#if mostreported}}
+	<table id="mostreportedtable" class="ui fixed celled table">
+		<thead><tr>
+			<th>Phone Number</th>
+			<th>Number of Reports</th>
+		</tr></thead>
+	{{#each mostreported}}
+		<tr>
+		<td><a href="/number/{{this.phonenum}}">{{this.phonenum}}</a></td>
+		<td>{{this.reports}}</td>
+		</tr>
+	{{/each}}
+	</table>
+{{else}}
+	<p>No reports yet.</p>
+{{/if}}
+
+</div>
+</div>

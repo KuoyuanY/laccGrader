@@ -1,0 +1,22 @@
+{
+  "name": "spam-caller-database",
+  "version": "1.0.0",
+  "description": "A database to report spam callers to",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "SaiArvind Ganganapalle",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.9.7",
+    "morgan": "^1.8.1",
+    "request": "^2.81.0"
+  }
+}
