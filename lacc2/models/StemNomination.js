@@ -1,6 +1,11 @@
 var mongoose = require('mongoose');
 
 var stemnomSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true
+  },
+
   nominator: {
     type: String,
     max: 100

@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 
 var athleticnomSchema = new mongoose.Schema({
+  username: {
+    type = String,
+    required = true
+  },
   nominator: {
     type: String,
     max: 100
