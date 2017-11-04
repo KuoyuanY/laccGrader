@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var servicenomSchema = new mongoose.Schema({
+var athleticnomSchema = new mongoose.Schema({
   nominator: {
     type: String,
     max: 100
@@ -33,12 +33,9 @@ var servicenomSchema = new mongoose.Schema({
     type: String,
     max: 1000
   },
-  servicehours: {
-    Type: Number
+  numteams: {
+    type: Number
   },
-  servicedocumentation: {
-    Type: String
-  }
   pstatement: {
     Type:String
   },
@@ -48,7 +45,7 @@ var servicenomSchema = new mongoose.Schema({
   transcript: {
     Type:String
   },
-    score: {
+  score: {
     type = Number,
     required: true,
     default: -1
@@ -63,7 +60,7 @@ var servicenomSchema = new mongoose.Schema({
   }
 });
 
-var nomination = mongoose.model('ServiceNomination', servicenomSchema);
+var nomination = mongoose.model('AthleticNomination', athleticnomSchema);
 
 module.exports = nomination;
 
