@@ -344,7 +344,14 @@ app.get('/nominator/athleticform', function(req,res){
 });
 
 app.get('/graders/ungradedapps', function(req,res){
-	
+    var id = req.session.username;
+    User.find({username: id}, function(err, user){
+        if(user.type == 4){//grader is 1
+            AthleticNomination.find({score: -1}, function(err, form){
+                res.send("Number of ungraded athletic forms: " + form.length);
+            });
+        }
+    })
 });
 
 app.post('/graders/finishedAthletic', funciton(req, rec){
