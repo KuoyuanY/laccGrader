@@ -138,8 +138,11 @@ app.post('/login', function (req, res, next) {
                 return next(err);
             } else {
                 req.session.username = user.username;
-                
-                return res.redirect('/graders');
+                if (parseInt(req.session.username) == 0) {
+                  return res.redirect('/nominator')
+                } else { 
+                  return res.redirect('/graders');
+                }
             }
         });
     } else {
@@ -453,24 +456,29 @@ app.get('/nominator/athleticform', function(req,res){
 
 app.get('/graders', function(req,res){
     var id = req.session.username;
+    console.log("grader username: " + id);
     User.find({username: id}, function(err, user){
-        if(user.type == 4){//grader is 1
+      console.log("user type: " + user[0].type);
+        if(user[0].type == 4){//grader is 1
             AthleticNomination.find({score: -1}, function(err, forms){
                 res.render("grader-dashboard",
-                           {ungradedapps:forms});
+                           {ungradedapps:forms
+                            ,type:parseInt(user[0].type)});
             });
         }
     })
 });
 
 app.post('/graders/finishedAthletic', function(req, res){
-    var numTeam = req.body.numTeam;
-    var grades = req.body.grades;
-    var awards = req.body.awards;
-    var discretionary = req.body.discretionary;
-    var appid = req.body.appid
-    AthleticNomination.find({id: appid},function(err,athleticform){
-	    athleticform.score = numTeam + grades + awards + discretionary;	    
+    var numTeam = parseInt(req.body.numTeam);
+    var grades = parseInt(req.body.grades);
+    var awards = parseInt(req.body.awards);
+    var discretionary = parseInt(req.body.discretionary);
+    var appid = parseInt(req.body.appid);
+    AthleticNomination.findOne({id: appid},function(err,athleticform){
+      console.log(athleticform.score);
+	    athleticform.update({id: appid}, 
+        {score : (numTeam + grades + awards + discretionary)});	    
         res.redirect("/graders");
     });
   });
