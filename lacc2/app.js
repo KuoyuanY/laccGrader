@@ -6,6 +6,7 @@ var _ = require('lodash');
 var dotenv = require('dotenv');
 var mongoose = require('mongoose');
 var request = require('request');
+var session = require('express-session');
 
 var AcademicRubric = require('./models/AcademicRubric');
 var ArtsRubric = require('./models/ArtsRubric');
