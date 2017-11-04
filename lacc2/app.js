@@ -21,7 +21,7 @@ var AthleticForm = require('./models/AthleticNomination');
 var ServiceForm = require('./models/ServiceNomination');
 var StemForm = require('./models/StemNomination');
 var app = express();
-
+var count = 0;
 
 dotenv.load();
 
@@ -184,7 +184,28 @@ app.post('/api/nominator/submitform', function(req,res){
 	           academicform.transcript == null){
 	            return res.json("Make sure all forms are filled out");
 	        } else {
-	            academicform.completed.push(true);
+                var newOne = new AthleticNomination({
+                    username:username;
+                    nominator:nominator;
+                    nomineefname:nomineefname;
+                    nomineelname:nomineelname;
+                    school:school;
+                    email:email;
+                    phonenum:phonenum;
+                    hispanic:hispanic;
+                    hispanicwhy:hispanicwhy;
+                    numteams:numteams;
+                    pstatement:pstatement;
+                    resume:resume;
+                    transcript:transcript;
+                    score:score;
+                    id = count+1;
+                    completed:true;
+                });
+                newOne.save(function(err){
+                    if (err) throw err;
+                });
+	           // academicform.completed.push(true);
 	            res.redirect("/nominator");
 	        }
 	    });
@@ -207,7 +228,28 @@ app.post('/api/nominator/submitform', function(req,res){
 	           stemform.transcript == null){
 	            return res.json("Make sure all forms are filled out");
 	        } else {
-	            stemform.completed.push(true);
+                var newOne = new AthleticNomination({
+                    username:username;
+                    nominator:nominator;
+                    nomineefname:nomineefname;
+                    nomineelname:nomineelname;
+                    school:school;
+                    email:email;
+                    phonenum:phonenum;
+                    hispanic:hispanic;
+                    hispanicwhy:hispanicwhy;
+                    numteams:numteams;
+                    pstatement:pstatement;
+                    resume:resume;
+                    transcript:transcript;
+                    score:score;
+                    id = count+1;
+                    completed:true;
+                });
+                newOne.save(function(err){
+                    if (err) throw err;
+                });
+	          //  stemform.completed.push(true);
 	            res.redirect("/nominator");
 	        }
 	    });
@@ -229,7 +271,28 @@ app.post('/api/nominator/submitform', function(req,res){
 	           artsform.transcript == null){
 	            return res.json("Make sure all forms are filled out");
 	        } else {
-	            artsform.completed.push(true);
+                var newOne = new AthleticNomination({
+                    username:username;
+                    nominator:nominator;
+                    nomineefname:nomineefname;
+                    nomineelname:nomineelname;
+                    school:school;
+                    email:email;
+                    phonenum:phonenum;
+                    hispanic:hispanic;
+                    hispanicwhy:hispanicwhy;
+                    numteams:numteams;
+                    pstatement:pstatement;
+                    resume:resume;
+                    transcript:transcript;
+                    score:score;
+                    id = count+1;
+                    completed:true;
+                });
+                newOne.save(function(err){
+                    if (err) throw err;
+                });
+	          //  artsform.completed.push(true);
 	            res.redirect("/nominator");
 	        }
 	    });
@@ -251,7 +314,28 @@ app.post('/api/nominator/submitform', function(req,res){
                athleticform.transcript == null){
                 return res.json("Make sure all forms are filled out");
             } else {
-                athleticform.completed.push(true);
+                var newOne = new AthleticNomination({
+                    username:username;
+                    nominator:nominator;
+                    nomineefname:nomineefname;
+                    nomineelname:nomineelname;
+                    school:school;
+                    email:email;
+                    phonenum:phonenum;
+                    hispanic:hispanic;
+                    hispanicwhy:hispanicwhy;
+                    numteams:numteams;
+                    pstatement:pstatement;
+                    resume:resume;
+                    transcript:transcript;
+                    score:score;
+                    id = count+1;
+                    completed:true;
+                });
+                newOne.save(function(err){
+                    if (err) throw err;
+                });
+               // athleticform.completed.push(true);
                 res.redirect("/nominator");
             }
         });
@@ -275,7 +359,28 @@ app.post('/api/nominator/submitform', function(req,res){
                serviceform.transcript == null){
                 return res.json("Make sure all forms are filled out");
             } else {
-                serviceform.completed.push(true);
+                var newOne = new ServiceNomination({
+                    username:username;
+                    nominator:nominator;
+                    nomineefname:nomineefname;
+                    nomineelname:nomineelname;
+                    school:school;
+                    email:email;
+                    phonenum:phonenum;
+                    hispanic:hispanic;
+                    hispanicwhy:hispanicwhy;
+                    numteams:numteams;
+                    pstatement:pstatement;
+                    resume:resume;
+                    transcript:transcript;
+                    score:score;
+                    id = count+1;
+                    completed:true;
+                });
+                newOne.save(function(err){
+                    if (err) throw err;
+                });
+              //  serviceform.completed.push(true);
                 res.redirect("/nominator");
             }
         });
@@ -311,6 +416,10 @@ least priority
 • /graders/gradedapps
 • /admin/allapps (if needed)
 */
+app.get('/AthleticRubric', function(req, res){
+    res.render('AthleticRubric');
+});
+
 app.get('/', function(req,res){
 	res.send("index at /");
 });
@@ -347,8 +456,9 @@ app.get('/graders', function(req,res){
     var id = req.session.username;
     User.find({username: id}, function(err, user){
         if(user.type == 4){//grader is 1
-            AthleticNomination.find({score: -1}, function(err, form){
-                res.json(form);
+            AthleticNomination.find({score: -1}, function(err, forms){
+                res.render("grader-dashboard",
+                           {ungradedapps:forms});
             });
         }
     })
