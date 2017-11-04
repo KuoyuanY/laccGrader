@@ -23,6 +23,6 @@ var serviceSchema = new mongoose.Schema({
 
 var ServiceRubric = mongoose.model('ServiceRubric', serviceSchema);
 
-module.exports = ServiceRubric
+module.exports = ServiceRubric;
 
 

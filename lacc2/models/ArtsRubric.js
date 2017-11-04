@@ -41,6 +41,6 @@ var artsSchema = new mongoose.Schema({
 
 var ArtsRubric = mongoose.model('ArtsRubric', artsSchema);
 
-module.exports = ArtsRubric
+module.exports = ArtsRubric;
 
 

@@ -29,6 +29,6 @@ var stemSchema = new mongoose.Schema({
 
 var StemRubric = mongoose.model('StemRubric', stemSchema);
 
-module.exports = StemRubric
+module.exports = StemRubric;
 
 

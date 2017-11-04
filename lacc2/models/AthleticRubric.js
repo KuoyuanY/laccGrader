@@ -29,6 +29,6 @@ var athleticSchema = new mongoose.Schema({
 
 var AthleticRubric = mongoose.model('AthleticRubric', athleticSchema);
 
-module.exports = AthleticRubric
+module.exports = AthleticRubric;
 
 

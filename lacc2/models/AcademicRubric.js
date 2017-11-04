@@ -41,6 +41,6 @@ var academicSchema = new mongoose.Schema({
 
 var AcademicRubric = mongoose.model('AcademicRubric', academicSchema);
 
-module.exports = AcademicRubric
+module.exports = AcademicRubric;
 
 
