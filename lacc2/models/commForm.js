@@ -2,10 +2,7 @@ var mongoose = require('mongoose');
 
 var artSchema = new Mongoose.Schema({
     creativity:{
-        type: Number,
-        min: 0,
-        max: 3,
-        required: True
+        type: Number
     }
     skill:{
         type: Number,
