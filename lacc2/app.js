@@ -58,7 +58,10 @@ app.use(session({
 don't need partials since links will be hardcoded
 */
 
+
 // API endpoints begin here
+
+
 app.get('/api/nominator/submitted', function(req,res){
     var nominatorName = req.session.username;
     console.log(nominatorName);
@@ -321,34 +324,83 @@ app.get('/nominator/completed', function(req,res){
 });
 
 app.get('/nominator/academicform', function(req,res){
-
+    res.render('academic');
 });
 
 app.get('/nominator/artsform', function(req,res){
-	
+	res.render('arts');
 });
 
 app.get('/nominator/stemform', function(req,res){
-
+    res.render('stem');
 });
 
 app.get('/nominator/communityserviceform', function(req,res){
-	
+	res.render('comm');
 });
 
 app.get('/nominator/athleticform', function(req,res){
-	
+	res.render('athletic');
 });
 
 app.get('/graders/ungradedapps', function(req,res){
 	
 });
 
-app.get('/graders/gradedapps', function(req,res){
-	
-});
+app.post('/graders/finishedAthletic', funciton(req, rec){
+    var numTeam = req.body.numTeam;
+    var grades = req.body.grades;
+    var awards = req.body.awards;
+    var discretionary = req.body.discretionary;
+    AthleticNomination.find({username: req.session.username},function(err,athleticform){
+	    athleticform.score = numTeam + grades + awards + discretionary;	    
+        res.redirect("/graders/ungradedapps");
+    });
 
+app.post('/graders/finishedAcademic', funciton(req, rec){
+    var gpa = req.body.gpa;
+    var rank = req.body.rank;
+    var numAP = req.body.numAP;
+    var numHon = req.body.numHon;
+    var gradeAP = req.body.gradeAP;
+    var discretionary = req.body.discretionary;
+    AcademicNomination.find({username: req.session.username},function(err,academicform){
+	    academicform.score = gpa + rank + numAP + numHon + gradeAP + discretionary;	    
+        res.redirect("/graders/ungradedapps");
+    });
 
+app.post('/graders/finishedComm', funciton(req, rec){
+    var numHon = req.body.numHon;
+    var APgrades = req.body.APgrades;
+    var discretionary = req.body.discretionary;
+    ServicesNomination.find({username: req.session.username},function(err, servicesform){
+	    servicesform.score = numHon+ APgrades + discretionary;	    
+        res.redirect("/graders/ungradedapps");
+    });
+
+app.post('/graders/finishedStem', funciton(req, rec){
+    var numAP = req.body.numAP;
+    var numHon = req.body.numHon;
+    var gradeAP = req.body.APgrades;
+    var discretionary = req.body.discretionary;
+    StemNomination.find({username: req.session.username},function(err,stemform){
+	    stemform.score = numAP + numHon + gradeAP + discretionary;	    
+        res.redirect("/graders/ungradedapps");
+    });
+    
+app.post('/graders/finishedArts', funciton(req, rec){
+    var creativity = req.body.creativity;
+    var craft = req.body.craftsmanship;
+    var impression = req.body.impression;
+    var composition = req.body.composition;
+    var grades = req.body.grades;
+    var discretionary = req.body.discretionary;
+    ArtsNomination.find({username: req.session.username},function(err,artsform){
+	    artsform.score = creativity + craft + impression + composition + grades + discretionary;	    
+        res.redirect("/graders/ungradedapps");
+    });
+
+    
 app.listen(3000, function() {
     console.log('LACC listening on port 3000!');
 });
