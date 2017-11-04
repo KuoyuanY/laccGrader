@@ -42,9 +42,9 @@ var servicenomSchema = new mongoose.Schema({
   },
   servicedocumentation: {
     Type: String
-  }
+  },
   pstatement: {
-    Type:String
+    Type: String
   },
   resume: {
     Type:String
@@ -53,7 +53,7 @@ var servicenomSchema = new mongoose.Schema({
     Type:String
   },
     score: {
-    type = Number,
+    type: Number,
     required: true,
     default: -1
   },

@@ -54,7 +54,7 @@ var stemnomSchema = new mongoose.Schema({
     Type:String
   },
   score: {
-    type = Number,
+    type: Number,
     required: true,
     default: -1
   },
