@@ -15,11 +15,11 @@ var AthleticRubric = require('./models/AthleticRubric');
 var ServiceRubric = require('./models/ServiceRubric');
 var StemRubric = require('./models/StemRubric');
 var User = require('./models/user.js');
-var AcademicForm = require('./models/AcademicNomination');
-var ArtsForm = require('./models/ArtsNomination');
-var AthleticForm = require('./models/AthleticNomination');
-var ServiceForm = require('./models/ServiceNomination');
-var StemForm = require('./models/StemNomination');
+var AcademicNomination = require('./models/AcademicNomination');
+var ArtsNomination = require('./models/ArtsNomination');
+var AthleticNomination = require('./models/AthleticNomination');
+var ServiceNomination = require('./models/ServiceNomination');
+var StemNomination = require('./models/StemNomination');
 var app = express();
 var count = 0;
 
@@ -139,7 +139,7 @@ app.post('/login', function (req, res, next) {
             } else {
                 req.session.username = user.username;
                 
-                return res.redirect('/?');
+                return res.redirect('/graders');
             }
         });
     } else {
@@ -156,7 +156,7 @@ app.get('/logout', function (req, res, next) {
       if (err) {
         return next(err);
       } else {
-        return res.redirect('/');
+        return res.redirect('/login');
       }
     });
   }
@@ -164,6 +164,17 @@ app.get('/logout', function (req, res, next) {
 
 app.post('/api/nominator/submitform', function(req,res){
 	var type = req.body.type;
+  var nominator = req.body.nominator;
+  var fname = req.body.first_name;
+  var lname = req.body.last_name;
+  var email = req.body.email;
+  var school = req.body.school;
+  var phone = req.body.phone;
+  var hispanic = req.body.hispanic;
+  var whywhynot = req.body.whywhynot;
+  var numteams = req.body.numteams;
+
+  console.log("type: " + type);
 	if (type == 1){
 	    AcademicNomination.find({username: req.session.username},function(err,academicform){
 	        if(err) throw err;
@@ -297,37 +308,35 @@ app.post('/api/nominator/submitform', function(req,res){
 	    });
 	}
     if (type == 4){
-        AthleticsNomination.find({username: req.session.username},function(err,athleticform){
+        AthleticNomination.find({username: req.session.username},function(err,athleticform){
             if(err) throw err;
-            if(athleticform.nominator == null ||
-               athleticform.nomineefname == null ||
-               athleticform.nomineelname == null ||
-               athleticform.school == null ||
-               athleticform.email == null ||
-               athleticform.phonenum == null ||
-               athleticform.hispanic == null ||
-               athleticform.hispanicwhy == null ||
-               athleticform.numteams == null ||
-               athleticform.pstatement == null ||
-               athleticform.resume == null ||
-               athleticform.transcript == null){
+            if(nominator == null ||
+               fname == null ||
+               lname == null ||
+               school == null ||
+               email == null ||
+               phone == null ||
+               hispanic == null ||
+               whywhynot == null ||
+               numteams == null){
                 return res.json("Make sure all forms are filled out");
             } else {
+              console.log("user name: "+req.session.username);
                 var newOne = new AthleticNomination({
-                    username:username,
+                    username:req.session.username,
                     nominator:nominator,
-                    nomineefname:nomineefname,
-                    nomineelname:nomineelname,
+                    nomineefname:fname,
+                    nomineelname:lname,
                     school:school,
                     email:email,
-                    phonenum:phonenum,
+                    phonenum:phone,
                     hispanic:hispanic,
-                    hispanicwhy:hispanicwhy,
+                    hispanicwhy:whywhynot,
                     numteams:numteams,
-                    pstatement:pstatement,
-                    resume:resume,
-                    transcript:transcript,
-                    score:score,
+                    //pstatement:pstatement,
+                    //resume:resume,
+                    //transcript:transcript,
+                    score: -1,
                     id : count+1,
                     completed:true,
                 });

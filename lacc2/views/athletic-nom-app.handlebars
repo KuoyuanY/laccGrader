@@ -7,7 +7,7 @@
   <body>
     <div class="container">
       <form class="well form-horizontal" action="/api/nominator/submitform" method="post" id="nomination">
-        <input type="hidden" value="4">
+        <input type="hidden" name="type" value="4">
         <fieldset>
           <!-- Form Name -->
           <legend>STUDENT - NOMINEE INFORMATION</legend>
@@ -75,12 +75,12 @@
             <div class="col-md-4">
               <div class="radio">
                 <label>
-                  <input type="radio" name="hosting" value="yes" /> Yes
+                  <input type="radio" name="hispanic" value="yes" /> Yes
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input type="radio" name="hosting" value="no" /> No
+                  <input type="radio" name="hispanic" value="no" /> No
                 </label>
               </div>
             </div>
@@ -91,7 +91,7 @@
             <div class="col-md-4 inputGroupContainer">
               <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                <textarea class="form-control" name="comment"></textarea>
+                <textarea class="form-control" name="whywhynot"></textarea>
               </div>
             </div>
           </div>
