@@ -125,15 +125,18 @@ app.post('/login', function (req, res, next) {
         return next(err);
     }
     
-    if (req.body.type &&
+    if (
         req.body.username &&
-        req.body.password &&
-        req.body.passwordConf) {
-        
+            req.body.password &&
+            req.body.firstName &&
+            req.body.lastName &&
+            req.body.passwordConf) {
         var userData = {
-            type: req.body.type,
+            type: 0,
             username: req.body.username,
             password: req.body.password,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             passwordConf: req.body.passwordConf,
         }
         
@@ -142,8 +145,8 @@ app.post('/login', function (req, res, next) {
                 return next(error);
             } else {
                 console.log(user);
-                req.session.userId = user._id;
-                return res.redirect('/profile');
+                req.session.userId = user.username;
+                return res.redirect('/nominator');
             }
         });
         
