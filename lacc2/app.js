@@ -415,7 +415,7 @@ app.get('/', function(req,res){
 });
 
 app.get('/nominator', function(req,res){
-	console.log("****nominator****");
+	res.render('nominator-dashboard');
 });
 
 app.get('/nominator/completed', function(req,res){
